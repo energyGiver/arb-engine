@@ -1,0 +1,81 @@
+# Exchange configuration for data collection
+
+cex:
+  binance:
+    name: "Binance"
+    type: "cex"
+    enabled: true
+    ws_endpoint: "wss://stream.binance.com:9443/ws"
+    rest_endpoint: "https://api.binance.com"
+    symbols:
+      - "BTC/USDT"
+      - "ETH/USDT"
+    orderbook_depth: 5
+    collection_interval: 1  # seconds
+
+  bybit:
+    name: "Bybit"
+    type: "cex"
+    enabled: true
+    ws_endpoint: "wss://stream.bybit.com/v5/public/linear"
+    rest_endpoint: "https://api.bybit.com"
+    symbols:
+      - "BTC/USDT"
+      - "ETH/USDT"
+    orderbook_depth: 5
+    collection_interval: 1
+
+  okx:
+    name: "OKX"
+    type: "cex"
+    enabled: true
+    ws_endpoint: "wss://ws.okx.com:8443/ws/v5/public"
+    rest_endpoint: "https://www.okx.com"
+    symbols:
+      - "BTC/USDT"
+      - "ETH/USDT"
+    orderbook_depth: 5
+    collection_interval: 1
+
+perps:
+  hyperliquid:
+    name: "Hyperliquid"
+    type: "perp"
+    enabled: true
+    ws_endpoint: "wss://api.hyperliquid.xyz/ws"
+    rest_endpoint: "https://api.hyperliquid.xyz"
+    symbols:
+      - "BTC-PERP"
+      - "ETH-PERP"
+    orderbook_depth: 5
+    collection_interval: 1
+    funding_interval: 60  # seconds (funding rate updates less frequently)
+
+  lighter:
+    name: "Lighter"
+    type: "perp"
+    enabled: true
+    ws_endpoint: "wss://api.lighter.xyz/v1/ws"
+    rest_endpoint: "https://api.lighter.xyz"
+    symbols:
+      - "BTC-PERP"
+      - "ETH-PERP"
+    orderbook_depth: 5
+    collection_interval: 1
+    funding_interval: 60
+
+# Symbol mapping: standardize to common format
+symbol_mapping:
+  # BTC variants
+  "BTCUSDT": "BTC/USDT"
+  "BTC-USDT": "BTC/USDT"
+  "BTC/USDT": "BTC/USDT"
+  "BTC-PERP": "BTC-PERP"
+  "BTCPERP": "BTC-PERP"
+
+  # ETH variants
+  "ETHUSDT": "ETH/USDT"
+  "ETH-USDT": "ETH/USDT"
+  "ETH/USDT": "ETH/USDT"
+  "ETH-PERP": "ETH-PERP"
+  "ETHPERP": "ETH-PERP"

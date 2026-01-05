@@ -1,0 +1,50 @@
+# Trading fees configuration
+# All fees in basis points (bps) or percentage
+
+cex:
+  binance:
+    maker: 0.0001  # 0.01% = 1 bps
+    taker: 0.0001  # 0.01%
+    withdrawal:
+      BTC: 0.0005
+      ETH: 0.001
+
+  bybit:
+    maker: 0.0001  # 0.01%
+    taker: 0.0006  # 0.06%
+    withdrawal:
+      BTC: 0.0005
+      ETH: 0.0005
+
+  okx:
+    maker: 0.0008  # 0.08%
+    taker: 0.001   # 0.10%
+    withdrawal:
+      BTC: 0.0004
+      ETH: 0.0006
+
+perps:
+  hyperliquid:
+    maker: 0.00015  # 0.015%
+    taker: 0.00045  # 0.045%
+    funding_cap: 0.05  # Max funding rate per period
+
+  lighter:
+    maker: 0.0002  # 0.02%
+    taker: 0.0005  # 0.05%
+    funding_cap: 0.05
+
+# Default fees if exchange-specific not found
+default:
+  cex:
+    maker: 0.001
+    taker: 0.002
+  perp:
+    maker: 0.0002
+    taker: 0.0006
+    funding_cap: 0.05
+
+# Fee tier discounts (volume-based, to be implemented later)
+# Currently using base tier
+tiers:
+  enabled: false
