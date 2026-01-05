@@ -1,0 +1,52 @@
+# Arbitrage detection and trading strategy parameters
+
+# Arbitrage detection thresholds
+detection:
+  min_net_spread_bps: 5.0  # Minimum net spread (after fees) in basis points
+  min_gross_spread_bps: 10.0  # Minimum gross spread before fees
+  max_slippage_bps: 20.0  # Maximum acceptable slippage
+
+  # Position sizing
+  min_trade_size_usd: 100  # Minimum trade size in USD
+  max_trade_size_usd: 10000  # Maximum trade size in USD
+  position_pct_of_depth: 0.5  # Use up to 50% of L5 depth
+
+# Slippage estimation model
+slippage:
+  # Simple linear model: slippage = base + (size / depth) * multiplier
+  model: "linear"  # Options: "linear", "square_root", "custom"
+  base_bps: 1.0  # Base slippage in bps
+  depth_multiplier: 10.0  # Multiplier for depth impact
+
+  # Use L5 orderbook to estimate available depth
+  use_orderbook_depth: true
+
+# Convergence tracking
+convergence:
+  tracking_window_seconds: 60  # Track for 60 seconds after signal
+  min_convergence_pct: 50.0  # Consider converged if spread reduced by 50%+
+
+  # Labels
+  converged_threshold_bps: 2.0  # Spread < 2 bps = fully converged
+
+# Funding rate considerations (for perp arbitrage)
+funding:
+  enabled: true
+  max_funding_rate: 0.01  # 1% max funding rate per period
+  annualized_threshold: 0.20  # Don't enter if annualized funding > 20%
+
+  # Typical funding periods (hours)
+  funding_period_hours:
+    hyperliquid: 1
+    lighter: 1
+    default: 8
+
+# Signal expiry
+signal:
+  max_age_seconds: 5  # Signals older than 5s are considered stale
+  max_pending_signals: 100  # Max number of signals to track
+
+# Dry run mode (for testing)
+dry_run:
+  enabled: true  # Start in dry run mode (no real trades)
+  log_would_execute: true  # Log trades that would have been executed

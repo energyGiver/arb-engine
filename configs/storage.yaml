@@ -1,0 +1,97 @@
+# Storage configuration for data persistence
+
+# DuckDB settings
+duckdb:
+  path: "data/duckdb/arb_engine.db"
+
+  # Performance tuning
+  threads: 4  # Number of threads for queries
+  memory_limit: "2GB"  # Max memory usage
+
+  # Write settings
+  checkpoint_interval_seconds: 60  # Auto-checkpoint every 60s
+  wal_autocheckpoint: 1000  # WAL auto-checkpoint after N pages
+
+# Parquet storage
+parquet:
+  base_path: "data/parquet"
+
+  # Partitioning strategy
+  partition_by: "date"  # Partition by date (YYYY-MM-DD)
+  partition_format: "%Y-%m-%d"
+
+  # Compression
+  compression: "snappy"  # Options: snappy, gzip, zstd, lz4
+
+  # Row group size (affects query performance)
+  row_group_size: 100000
+
+  # File rotation
+  max_rows_per_file: 1000000  # Start new file after 1M rows
+
+# Table schemas and retention
+tables:
+  price_ticks:
+    enabled: true
+    retention_days: 30  # Keep 30 days of data
+    indexes: ["exchange", "symbol", "exchange_timestamp"]
+
+  orderbook_snapshots:
+    enabled: true
+    retention_days: 7  # Orderbook data is large, keep 7 days
+    indexes: ["exchange", "symbol", "exchange_timestamp"]
+
+  funding_rates:
+    enabled: true
+    retention_days: 30
+    indexes: ["exchange", "symbol", "exchange_timestamp"]
+
+  arb_signals:
+    enabled: true
+    retention_days: 90  # Keep signals longer for analysis
+    indexes: ["timestamp", "symbol", "status"]
+
+  market_snapshots:
+    enabled: true
+    retention_days: 7
+    indexes: ["timestamp", "symbol"]
+
+# Cleanup and maintenance
+maintenance:
+  # Auto cleanup old data
+  auto_cleanup_enabled: true
+  cleanup_schedule_hour: 3  # Run cleanup at 3 AM daily
+
+  # Vacuum (reclaim space)
+  auto_vacuum: true
+  vacuum_schedule_days: 7  # Vacuum every 7 days
+
+  # Backup
+  auto_backup_enabled: false  # Disable by default
+  backup_path: "data/backups"
+  backup_retention_days: 7
+
+# Query optimization
+query:
+  # Enable query result caching
+  enable_cache: true
+  cache_size_mb: 256
+
+  # Default query limits
+  default_limit: 1000
+  max_limit: 10000
+
+  # Enable query progress tracking
+  enable_progress_bar: false  # Disable for API usage
+
+# Data export
+export:
+  # CSV export settings
+  csv_delimiter: ","
+  csv_quoting: "minimal"
+
+  # JSON export
+  json_orient: "records"  # Options: records, split, index, columns
+
+  # Max export rows
+  max_export_rows: 100000

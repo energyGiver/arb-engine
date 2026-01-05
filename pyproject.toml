@@ -7,13 +7,15 @@ name = "arb-engine"
 version = "0.1.0"
 description = "CEX/PerpDEX Arbitrage Bot with Real-time Monitoring"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 authors = [
     {name = "Your Name", email = "your.email@example.com"}
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
@@ -71,16 +73,16 @@ where = ["src"]
 
 [tool.black]
 line-length = 100
-target-version = ['py311']
+target-version = ['py39']
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py39"
 select = ["E", "F", "I", "N", "W", "UP"]
 ignore = ["E501"]  # Line too long (handled by black)
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false

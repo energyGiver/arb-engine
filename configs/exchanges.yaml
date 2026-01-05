@@ -55,14 +55,18 @@ perps:
     name: "Lighter"
     type: "perp"
     enabled: true
-    ws_endpoint: "wss://api.lighter.xyz/v1/ws"
+    ws_endpoint: "wss://mainnet.zklighter.elliot.ai/stream"
     rest_endpoint: "https://api.lighter.xyz"
     symbols:
-      - "BTC-PERP"
-      - "ETH-PERP"
+      - "BTC-PERP"  # market_index: 0
+      - "ETH-PERP"  # market_index: 1
     orderbook_depth: 5
     collection_interval: 1
     funding_interval: 60
+    # Market index mapping
+    market_indices:
+      BTC-PERP: 0
+      ETH-PERP: 1
 
 # Symbol mapping: standardize to common format
 symbol_mapping:
